@@ -1,3 +1,40 @@
-import type { Config } from 'tailwindcss';
-const config: Config = { darkMode: ['class'], content: ['./app/**/*.{ts,tsx}', './components/**/*.{ts,tsx}'], theme: { extend: { colors: { ink: '#242520', paper: '#EAE5D9', moss: '#68745A', bronze: '#A47D55', plum: '#765C6D', slate: '#343A3C' }, fontFamily: { display: ['var(--font-display)'], sans: ['var(--font-sans)'] }, boxShadow: { soft: '0 20px 70px rgba(0,0,0,.22)' }, animation: { 'float-slow': 'float 8s ease-in-out infinite', 'grain': 'grain .4s steps(2) infinite' }, keyframes: { float: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-9px)' } }, grain: { '0%,100%': { transform: 'translate(0,0)' }, '25%': { transform: 'translate(1%,-1%)' }, '50%': { transform: 'translate(-1%,1%)' }, '75%': { transform: 'translate(1%,1%)' } } } } }, plugins: [] };
+import type { Config } from "tailwindcss";
+const config: Config = {
+  darkMode: ["class"],
+  content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}"],
+  theme: {
+    extend: {
+      colors: {
+        ink: "#242520",
+        paper: "#EAE5D9",
+        moss: "#68745A",
+        bronze: "#A47D55",
+        plum: "#765C6D",
+        slate: "#343A3C",
+      },
+      fontFamily: {
+        display: ["var(--font-display)"],
+        sans: ["var(--font-sans)"],
+      },
+      boxShadow: { soft: "0 20px 70px rgba(0,0,0,.22)" },
+      animation: {
+        "float-slow": "float 8s ease-in-out infinite",
+        grain: "grain .4s steps(2) infinite",
+      },
+      keyframes: {
+        float: {
+          "0%,100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-9px)" },
+        },
+        grain: {
+          "0%,100%": { transform: "translate(0,0)" },
+          "25%": { transform: "translate(1%,-1%)" },
+          "50%": { transform: "translate(-1%,1%)" },
+          "75%": { transform: "translate(1%,1%)" },
+        },
+      },
+    },
+  },
+  plugins: [],
+};
 export default config;
