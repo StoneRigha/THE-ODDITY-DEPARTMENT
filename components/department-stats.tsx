@@ -3,11 +3,16 @@
 import { useEffect, useState } from "react";
 import { Activity, FileText, Heart, TrendingUp } from "lucide-react";
 
+type MoodStat = {
+  mood: string;
+  count: number;
+};
+
 type Stats = {
   total: number;
   today: number;
   reactions: number;
-  moods: { mood: string; count: number }[];
+  moods: MoodStat[];
   connected: boolean;
 };
 
@@ -27,9 +32,19 @@ export function DepartmentStats() {
 
     const load = () =>
       fetch("/api/stats", { cache: "no-store" })
-        .then((r) => r.json())
-        .then((d) => {
-          if (active) setStats(d);
+        .then((r) => {
+          if (!r.ok) throw new Error("Failed to load stats");
+          return r.json();
+        })
+        .then((d: Partial<Stats>) => {
+          if (!active || !d) return;
+          setStats({
+            total: typeof d.total === "number" ? d.total : 0,
+            today: typeof d.today === "number" ? d.today : 0,
+            reactions: typeof d.reactions === "number" ? d.reactions : 0,
+            moods: Array.isArray(d.moods) ? d.moods : [],
+            connected: Boolean(d.connected),
+          });
         })
         .catch(() => undefined);
 
@@ -60,6 +75,8 @@ export function DepartmentStats() {
       icon: Heart,
     },
   ];
+
+  const topMoodCount = stats.moods[0]?.count || 1;
 
   return (
     <div>
@@ -114,10 +131,7 @@ export function DepartmentStats() {
                   <div
                     className="h-1 bg-[#879174]"
                     style={{
-                      width: `${Math.max(
-                        4,
-                        (m.count / (stats.moods[0]?.count || 1)) * 100,
-                      )}%`,
+                      width: `${Math.max(4, (m.count / topMoodCount) * 100)}%`,
                     }}
                   />
                 </div>

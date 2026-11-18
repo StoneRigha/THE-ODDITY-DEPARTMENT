@@ -5,7 +5,9 @@ import { DepartmentStats } from "@/components/department-stats";
 import { createServerSupabase } from "@/lib/supabase-server";
 import type { Omen } from "@/lib/oracle";
 import { ArrowDown, ArrowUpRight, Asterisk } from "lucide-react";
+
 export const revalidate = 30;
+
 async function getOmens(): Promise<Omen[]> {
   const db = createServerSupabase();
   if (!db) return [];
@@ -18,10 +20,12 @@ async function getOmens(): Promise<Omen[]> {
     .limit(6);
   return (data || []) as Omen[];
 }
+
 export default async function Home() {
   const omens = await getOmens();
+
   return (
-    <main>
+    <main id="top">
       <SiteHeader />
       <section className="relative overflow-hidden px-5 pb-20 pt-16 md:px-10 md:pb-28 md:pt-24">
         <div className="absolute -right-40 top-0 h-[560px] w-[560px] rounded-full border border-[#a47d55]/10" />
@@ -56,6 +60,7 @@ export default async function Home() {
           ∴
         </div>
       </section>
+
       <section
         id="oracle"
         className="border-y hairline bg-[#20211d] px-5 py-16 md:px-10 md:py-24"
@@ -67,7 +72,7 @@ export default async function Home() {
                 01 / THE CONSULTATION
               </p>
               <h2 className="font-display text-4xl tracking-tight md:text-5xl">
-                Let&apos;s see what happens.
+                {"Let's see what happens."}
               </h2>
             </div>
             <p className="max-w-xs font-mono text-[9px] leading-relaxed tracking-[.1em] text-[#888477]">
@@ -78,6 +83,7 @@ export default async function Home() {
           <OracleMachine />
         </div>
       </section>
+
       <section id="how-it-works" className="px-5 py-20 md:px-10 md:py-28">
         <div className="mx-auto grid max-w-7xl gap-12 md:grid-cols-[.8fr_1.2fr]">
           <div>
@@ -115,6 +121,7 @@ export default async function Home() {
           </div>
         </div>
       </section>
+
       <section
         id="community"
         className="border-y hairline bg-[#20211d] px-5 py-20 md:px-10 md:py-24"
@@ -126,7 +133,7 @@ export default async function Home() {
                 03 / THE PUBLIC RECORD
               </p>
               <h2 className="font-display text-4xl md:text-5xl">
-                Other people&apos;s problems.
+                {"Other people's problems."}
               </h2>
               <p className="mt-3 max-w-md text-sm text-[#a9a496]">
                 A growing archive of things the universe apparently felt you
@@ -149,14 +156,16 @@ export default async function Home() {
           </div>
         </div>
       </section>
+
       <section id="statistics" className="px-5 py-20 md:px-10 md:py-24">
         <div className="mx-auto max-w-7xl">
           <DepartmentStats />
         </div>
       </section>
+
       <footer className="mx-auto flex max-w-7xl flex-col gap-4 px-5 py-8 font-mono text-[9px] tracking-[.14em] text-[#858276] sm:flex-row sm:items-center sm:justify-between md:px-10">
         <span>© 2026 THE ODDITY DEPARTMENT. ALL OMENS RESERVED.</span>
-        <span>BUILT ON CURIOSITY & QUESTIONABLE CERTAINTY.</span>
+        <span>BUILT ON CURIOSITY &amp; QUESTIONABLE CERTAINTY.</span>
         <a href="#top" className="text-[#b58b60]">
           BACK TO THE TOP
         </a>
