@@ -85,7 +85,7 @@ export function DepartmentStats() {
         </p>
         {stats.moods.length ? (
           <div className="grid gap-3 sm:grid-cols-2">
-            {stats.moods.map((m, i) => (
+            {stats.moods.map((m) => (
               <div key={m.mood}>
                 <div className="mb-1 flex justify-between font-mono text-[9px] text-[#c9c3b6]">
                   <span>{m.mood}</span>

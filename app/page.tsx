@@ -29,7 +29,7 @@ export default async function Home() {
         <div className="relative mx-auto max-w-7xl">
           <div className="mb-8 flex items-center gap-3 font-mono text-[10px] tracking-[.2em] text-[#b58b60]">
             <span className="h-px w-8 bg-[#a47d55]" /> AN UNNECESSARY INTERNET
-            EXPERIMENT <span className="text-[#777568]">№ 001</span>
+            EXPERIMENT <span className="text-[#777568]">001</span>
           </div>
           <h1 className="max-w-5xl font-display text-[clamp(3.6rem,9vw,8.7rem)] font-medium leading-[.88] tracking-[-.065em]">
             THE UNIVERSE
@@ -102,7 +102,7 @@ export default async function Home() {
               },
               {
                 n: "03",
-                t: "Make it everyone’s problem",
+                t: "Make it everyone&apos;s problem",
                 d: "Save your card. Send it to a friend. Let them wonder why it is so accurate.",
               },
             ].map((x) => (
@@ -126,7 +126,7 @@ export default async function Home() {
                 03 / THE PUBLIC RECORD
               </p>
               <h2 className="font-display text-4xl md:text-5xl">
-                Other people’s problems.
+                Other people&apos;s problems.
               </h2>
               <p className="mt-3 max-w-md text-sm text-[#a9a496]">
                 A growing archive of things the universe apparently felt you
@@ -158,7 +158,7 @@ export default async function Home() {
         <span>© 2026 THE ODDITY DEPARTMENT. ALL OMENS RESERVED.</span>
         <span>BUILT ON CURIOSITY & QUESTIONABLE CERTAINTY.</span>
         <a href="#top" className="text-[#b58b60]">
-          BACK TO THE TOP ↑
+          BACK TO THE TOP
         </a>
       </footer>
     </main>
