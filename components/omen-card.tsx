@@ -1,14 +1,141 @@
-'use client';
-import { useRef, useState } from 'react';
-import { ArrowUpRight, Check, Copy, Download, Sparkles } from 'lucide-react';
-import { toPng } from 'html-to-image';
-import { toast } from 'sonner';
-import type { Omen } from '@/lib/oracle';
-export function OmenCard({omen, compact=false}:{omen:Omen;compact?:boolean}){
- const cardRef=useRef<HTMLDivElement>(null); const [copied,setCopied]=useState(false);
- const shareUrl=typeof window!=='undefined'?`${window.location.origin}/omen/${omen.slug}`:'';
- const copy=async()=>{const text=`${omen.title}\n\n${omen.prophecy}\n\n— THE ODDITY DEPARTMENT`;try{await navigator.clipboard.writeText(`${text}\n${shareUrl}`);setCopied(true);toast.success('Your omen has been copied. Go forth.');setTimeout(()=>setCopied(false),1800)}catch{toast.error('Clipboard unavailable.')}};
- const download=async()=>{if(!cardRef.current)return;try{const data=await toPng(cardRef.current,{pixelRatio:2,cacheBust:true});const a=document.createElement('a');a.download=`oddity-omen-${omen.slug||'your-fate'}.png`;a.href=data;a.click();toast.success('Omen exported. Frame it responsibly.')}catch{toast.error('Could not export this card.')}};
- const share=async()=>{if(navigator.share){try{await navigator.share({title:'My omen from The Oddity Department',text:omen.prophecy,url:shareUrl})}catch{}}else copy()};
- return <div className="w-full"><div ref={cardRef} className={`omen-paper relative overflow-hidden ${compact?'p-5':'p-7 sm:p-10'} shadow-soft`}><div className="absolute -right-12 -top-12 h-48 w-48 rounded-full border border-[#8c7759]/20"/><div className="absolute -right-7 -top-7 h-32 w-32 rounded-full border border-[#8c7759]/20"/><div className="relative"><div className="flex items-center justify-between border-b border-[#6d634f]/25 pb-4"><div className="flex items-center gap-2 font-mono text-[9px] tracking-[.2em] text-[#6b634f]"><Sparkles size={13}/> DEPARTMENT OF UNLIKELY EVENTS</div><span className="font-mono text-[9px] text-[#6b634f]">FILE {omen.slug?.toUpperCase()||'PENDING'}</span></div><div className="py-7"><p className="font-mono text-[9px] tracking-[.24em] text-[#927b58]">YOUR PERSONAL OMEN</p><h2 className={`font-display mt-3 max-w-xl font-semibold leading-[1.05] tracking-[-.035em] ${compact?'text-2xl':'text-3xl sm:text-5xl'}`}>{omen.title}</h2><div className="my-6 h-px w-12 bg-[#9b805c]"/><p className={`font-display leading-[1.45] text-[#39362e] ${compact?'text-lg':'text-xl sm:text-2xl'}`}>“{omen.prophecy}”</p></div><div className="grid grid-cols-2 gap-4 border-t border-[#6d634f]/25 pt-4"><div><p className="font-mono text-[8px] tracking-[.16em] text-[#8a795e]">CLASSIFICATION</p><p className="mt-1 font-mono text-[10px] font-medium text-[#39362e]">{omen.classification}</p></div><div><p className="font-mono text-[8px] tracking-[.16em] text-[#8a795e]">VALIDITY</p><p className="mt-1 font-mono text-[10px] font-medium text-[#39362e]">{omen.validity}</p></div></div><div className="mt-7 flex items-center justify-between border-t border-[#6d634f]/25 pt-4"><span className="font-mono text-[8px] tracking-[.2em] text-[#746a57]">THE ODDITY DEPARTMENT · EST. 2026</span><span className="font-display text-xl italic text-[#8a7658]">∴</span></div></div></div><div className="mt-3 flex flex-wrap gap-2"><button onClick={share} className="button-primary flex items-center gap-2 px-4 py-3 text-[10px] font-semibold uppercase tracking-[.13em]"><ArrowUpRight size={14}/> Share omen</button><button onClick={copy} className="flex items-center gap-2 border hairline px-4 py-3 text-[10px] uppercase tracking-[.13em] transition hover:border-[#a47d55]">{copied?<Check size={14}/>:<Copy size={14}/>} Copy link</button><button onClick={download} className="flex items-center gap-2 border hairline px-4 py-3 text-[10px] uppercase tracking-[.13em] transition hover:border-[#a47d55]"><Download size={14}/> Save card</button></div></div>
+"use client";
+import { useRef, useState } from "react";
+import { ArrowUpRight, Check, Copy, Download, Sparkles } from "lucide-react";
+import { toPng } from "html-to-image";
+import { toast } from "sonner";
+import type { Omen } from "@/lib/oracle";
+export function OmenCard({
+  omen,
+  compact = false,
+}: {
+  omen: Omen;
+  compact?: boolean;
+}) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [copied, setCopied] = useState(false);
+  const shareUrl =
+    typeof window !== "undefined"
+      ? `${window.location.origin}/omen/${omen.slug}`
+      : "";
+  const copy = async () => {
+    const text = `${omen.title}\n\n${omen.prophecy}\n\n— THE ODDITY DEPARTMENT`;
+    try {
+      await navigator.clipboard.writeText(`${text}\n${shareUrl}`);
+      setCopied(true);
+      toast.success("Your omen has been copied. Go forth.");
+      setTimeout(() => setCopied(false), 1800);
+    } catch {
+      toast.error("Clipboard unavailable.");
+    }
+  };
+  const download = async () => {
+    if (!cardRef.current) return;
+    try {
+      const data = await toPng(cardRef.current, {
+        pixelRatio: 2,
+        cacheBust: true,
+      });
+      const a = document.createElement("a");
+      a.download = `oddity-omen-${omen.slug || "your-fate"}.png`;
+      a.href = data;
+      a.click();
+      toast.success("Omen exported. Frame it responsibly.");
+    } catch {
+      toast.error("Could not export this card.");
+    }
+  };
+  const share = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: "My omen from The Oddity Department",
+          text: omen.prophecy,
+          url: shareUrl,
+        });
+      } catch {}
+    } else copy();
+  };
+  return (
+    <div className="w-full">
+      <div
+        ref={cardRef}
+        className={`omen-paper relative overflow-hidden ${compact ? "p-5" : "p-7 sm:p-10"} shadow-soft`}
+      >
+        <div className="absolute -right-12 -top-12 h-48 w-48 rounded-full border border-[#8c7759]/20" />
+        <div className="absolute -right-7 -top-7 h-32 w-32 rounded-full border border-[#8c7759]/20" />
+        <div className="relative">
+          <div className="flex items-center justify-between border-b border-[#6d634f]/25 pb-4">
+            <div className="flex items-center gap-2 font-mono text-[9px] tracking-[.2em] text-[#6b634f]">
+              <Sparkles size={13} /> DEPARTMENT OF UNLIKELY EVENTS
+            </div>
+            <span className="font-mono text-[9px] text-[#6b634f]">
+              FILE {omen.slug?.toUpperCase() || "PENDING"}
+            </span>
+          </div>
+          <div className="py-7">
+            <p className="font-mono text-[9px] tracking-[.24em] text-[#927b58]">
+              YOUR PERSONAL OMEN
+            </p>
+            <h2
+              className={`font-display mt-3 max-w-xl font-semibold leading-[1.05] tracking-[-.035em] ${compact ? "text-2xl" : "text-3xl sm:text-5xl"}`}
+            >
+              {omen.title}
+            </h2>
+            <div className="my-6 h-px w-12 bg-[#9b805c]" />
+            <p
+              className={`font-display leading-[1.45] text-[#39362e] ${compact ? "text-lg" : "text-xl sm:text-2xl"}`}
+            >
+              “{omen.prophecy}”
+            </p>
+          </div>
+          <div className="grid grid-cols-2 gap-4 border-t border-[#6d634f]/25 pt-4">
+            <div>
+              <p className="font-mono text-[8px] tracking-[.16em] text-[#8a795e]">
+                CLASSIFICATION
+              </p>
+              <p className="mt-1 font-mono text-[10px] font-medium text-[#39362e]">
+                {omen.classification}
+              </p>
+            </div>
+            <div>
+              <p className="font-mono text-[8px] tracking-[.16em] text-[#8a795e]">
+                VALIDITY
+              </p>
+              <p className="mt-1 font-mono text-[10px] font-medium text-[#39362e]">
+                {omen.validity}
+              </p>
+            </div>
+          </div>
+          <div className="mt-7 flex items-center justify-between border-t border-[#6d634f]/25 pt-4">
+            <span className="font-mono text-[8px] tracking-[.2em] text-[#746a57]">
+              THE ODDITY DEPARTMENT · EST. 2026
+            </span>
+            <span className="font-display text-xl italic text-[#8a7658]">
+              ∴
+            </span>
+          </div>
+        </div>
+      </div>
+      <div className="mt-3 flex flex-wrap gap-2">
+        <button
+          onClick={share}
+          className="button-primary flex items-center gap-2 px-4 py-3 text-[10px] font-semibold uppercase tracking-[.13em]"
+        >
+          <ArrowUpRight size={14} /> Share omen
+        </button>
+        <button
+          onClick={copy}
+          className="flex items-center gap-2 border hairline px-4 py-3 text-[10px] uppercase tracking-[.13em] transition hover:border-[#a47d55]"
+        >
+          {copied ? <Check size={14} /> : <Copy size={14} />} Copy link
+        </button>
+        <button
+          onClick={download}
+          className="flex items-center gap-2 border hairline px-4 py-3 text-[10px] uppercase tracking-[.13em] transition hover:border-[#a47d55]"
+        >
+          <Download size={14} /> Save card
+        </button>
+      </div>
+    </div>
+  );
 }

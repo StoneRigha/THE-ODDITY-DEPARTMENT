@@ -1,3 +1,32 @@
-import Link from 'next/link';
-import { ArrowUpRight, Asterisk } from 'lucide-react';
-export function SiteHeader(){return <header className="relative z-10 mx-auto flex max-w-7xl items-center justify-between px-5 py-6 md:px-10"><Link href="/" className="flex items-center gap-3"><span className="grid h-9 w-9 place-items-center rounded-full border hairline text-[#b58b60]"><Asterisk size={21}/></span><span className="font-mono text-[11px] leading-tight tracking-[.16em]">THE ODDITY<br/>DEPARTMENT</span></Link><nav className="flex items-center gap-6 font-mono text-[10px] uppercase tracking-[.14em] text-muted"><a href="#how-it-works" className="hidden transition hover:text-[#d9c8a8] sm:block">How it works</a><a href="#community" className="transition hover:text-[#d9c8a8]">The public record</a><a href="#oracle" className="flex items-center gap-1 text-[#d5b58c]">Consult the oracle <ArrowUpRight size={13}/></a></nav></header>}
+import Link from "next/link";
+import { ArrowUpRight, Asterisk } from "lucide-react";
+export function SiteHeader() {
+  return (
+    <header className="relative z-10 mx-auto flex max-w-7xl items-center justify-between px-5 py-6 md:px-10">
+      <Link href="/" className="flex items-center gap-3">
+        <span className="grid h-9 w-9 place-items-center rounded-full border hairline text-[#b58b60]">
+          <Asterisk size={21} />
+        </span>
+        <span className="font-mono text-[11px] leading-tight tracking-[.16em]">
+          THE ODDITY
+          <br />
+          DEPARTMENT
+        </span>
+      </Link>
+      <nav className="flex items-center gap-6 font-mono text-[10px] uppercase tracking-[.14em] text-muted">
+        <a
+          href="#how-it-works"
+          className="hidden transition hover:text-[#d9c8a8] sm:block"
+        >
+          How it works
+        </a>
+        <a href="#community" className="transition hover:text-[#d9c8a8]">
+          The public record
+        </a>
+        <a href="#oracle" className="flex items-center gap-1 text-[#d5b58c]">
+          Consult the oracle <ArrowUpRight size={13} />
+        </a>
+      </nav>
+    </header>
+  );
+}
