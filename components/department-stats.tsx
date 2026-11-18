@@ -1,6 +1,8 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import { Activity, FileText, Heart, TrendingUp } from "lucide-react";
+
 type Stats = {
   total: number;
   today: number;
@@ -8,6 +10,7 @@ type Stats = {
   moods: { mood: string; count: number }[];
   connected: boolean;
 };
+
 const empty: Stats = {
   total: 0,
   today: 0,
@@ -15,10 +18,13 @@ const empty: Stats = {
   moods: [],
   connected: false,
 };
+
 export function DepartmentStats() {
   const [stats, setStats] = useState<Stats>(empty);
+
   useEffect(() => {
     let active = true;
+
     const load = () =>
       fetch("/api/stats", { cache: "no-store" })
         .then((r) => r.json())
@@ -26,13 +32,17 @@ export function DepartmentStats() {
           if (active) setStats(d);
         })
         .catch(() => undefined);
+
     load();
+
     const timer = window.setInterval(load, 30000);
+
     return () => {
       active = false;
       window.clearInterval(timer);
     };
   }, []);
+
   const metrics = [
     {
       label: "OMENS ON FILE",
@@ -50,6 +60,7 @@ export function DepartmentStats() {
       icon: Heart,
     },
   ];
+
   return (
     <div>
       <div className="mb-7 flex items-center justify-between">
@@ -57,15 +68,18 @@ export function DepartmentStats() {
           <p className="mb-2 font-mono text-[9px] tracking-[.22em] text-[#a47d55]">
             04 / DEPARTMENTAL INTELLIGENCE
           </p>
+
           <h2 className="font-display text-3xl md:text-4xl">
             The numbers are strange.
           </h2>
         </div>
+
         <span className="flex items-center gap-2 font-mono text-[8px] tracking-[.15em] text-[#8f9a78]">
-          <Activity size={12} />{" "}
+          <Activity size={12} />
           {stats.connected ? "LIVE ARCHIVE" : "DEMO / OFFLINE"}
         </span>
       </div>
+
       <div className="grid gap-3 sm:grid-cols-3">
         {metrics.map(({ label, value, icon: Icon }) => (
           <div key={label} className="border hairline bg-[#292a24] p-5">
@@ -73,16 +87,20 @@ export function DepartmentStats() {
               <span className="font-mono text-[8px] tracking-[.16em]">
                 {label}
               </span>
+
               <Icon size={15} />
             </div>
+
             <p className="mt-5 font-display text-4xl text-[#e8e1d3]">{value}</p>
           </div>
         ))}
       </div>
+
       <div className="mt-3 border hairline bg-[#292a24] p-5">
         <p className="mb-4 font-mono text-[8px] tracking-[.16em] text-[#a47d55]">
           MOST COMMON STATES OF EXISTENCE
         </p>
+
         {stats.moods.length ? (
           <div className="grid gap-3 sm:grid-cols-2">
             {stats.moods.map((m) => (
@@ -91,11 +109,15 @@ export function DepartmentStats() {
                   <span>{m.mood}</span>
                   <span>{m.count}</span>
                 </div>
+
                 <div className="h-1 bg-[#414239]">
                   <div
                     className="h-1 bg-[#879174]"
                     style={{
-                      width: `${Math.max(4, (m.count / (stats.moods[0]?.count || 1)) * 100)}%`,
+                      width: `${Math.max(
+                        4,
+                        (m.count / (stats.moods[0]?.count || 1)) * 100,
+                      )}%`,
                     }}
                   />
                 </div>

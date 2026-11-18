@@ -102,7 +102,7 @@ export default async function Home() {
               },
               {
                 n: "03",
-                t: "Make it everyone&apos;s problem",
+                t: "Make it everyone's problem",
                 d: "Save your card. Send it to a friend. Let them wonder why it is so accurate.",
               },
             ].map((x) => (
